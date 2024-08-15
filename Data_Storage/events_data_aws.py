@@ -7,7 +7,7 @@ import pandas as pd
 from parsel import Selector
 from datetime import datetime
 
-credentials = pd.read_csv('isabelmorar_accessKeys.csv')
+credentials = pd.read_csv('Data_Storage/isabelmorar_accessKeys.csv')
 access_key_id = credentials['Access key ID'][0]
 secret_access_key = credentials['Secret access key'][0]
 
@@ -27,7 +27,7 @@ events_url = "http://data.gdeltproject.org/events/index.html"
 response = requests.get(events_url)
 sel = Selector(text=response.text)
 
-start_date = datetime(2024, 8, 1)
+start_date = datetime(2024, 8, 1) #Cambiar para que se upload todos
 end_date = datetime(2024, 8, 13)
 
 # Get the links as URLs that can be downloaded later
