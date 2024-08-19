@@ -3,6 +3,7 @@ import pandas as pd
 import streamlit as st
 from probabilistic_summarizer import summarize_news
 import datetime
+from title_extractor import extract_article_text
 
 
 
@@ -63,9 +64,10 @@ def get_urls(start_date, end_date, num_urls):
     else:
         all_dfs = []
         days = (end_date - start_date).days
+        date = start_date.strftime("%Y%m%d")
         for i in range(days):
+            date = (start_date + datetime.timedelta(days=i)).strftime("%Y%m%d")
             # I want to combine all the csv in the chooosen dates
-            date = start_date.strftime("%Y%m%d")
             data = pd.read_csv(f"GDELT Event Files/{date}.export.CSV", sep="\t", header=None)
             data.columns = column_names
             clean_data = data.drop_duplicates(subset='source_url')
@@ -80,14 +82,15 @@ def get_urls(start_date, end_date, num_urls):
 
 urls = get_urls(start_date, end_date, 5)
 # Generate summaries
-summaries = [summarize_news(url) for url in urls]
+summaries = [url for url in urls]
 
 
 # Create a container for the scrollable area
 with st.container():
     for i, (url, summary) in enumerate(zip(urls, summaries), 1):
         # Extract title from the URL (you might want to improve this based on your actual data)
-        title = f"Article {i}: {url.split('/')[-1]}"
+        title = extract_article_text(url)
+        # If not title, ask GPT to create one based on the summary
         
         # Create an expander for each article
         with st.expander(title):
