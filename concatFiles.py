@@ -72,7 +72,7 @@ csv_columns = ['global_id',
  'source_url'] # URL
 
 # Use glob to get all CSV files in the folder
-all_files = glob.glob(csv_folder_path + "/*.csv")[100:200]
+all_files = glob.glob(csv_folder_path + "/*.csv")[200:]
 
 # Initialize an empty list to store DataFrames
 df_list = []
@@ -89,7 +89,7 @@ combined_df = pd.concat(df_list, ignore_index=True)
 deduplicated_df = combined_df.drop_duplicates(subset="source_url")
 
 # Save the deduplicated DataFrame to a single CSV file
-output_path = "masterData2  .csv"
+output_path = "masterData3.csv"
 deduplicated_df.drop_duplicates(subset="source_url").to_csv(output_path, index=False)
 
 print(f"Combined and deduplicated file saved to {output_path}")
