@@ -4,17 +4,7 @@ import streamlit as st
 from probabilistic_summarizer import summarize_news
 import datetime
 
-# Load and process data
-data = pd.read_csv("GDELT Event Files/20240806.export.CSV", sep="\t", header=None)
-data.columns = column_names
-clean_data = data.drop_duplicates(subset='source_url')
-relevant_data = clean_data[['num_sources', 'source_url', 'goldstein_scale']]
-sorted_data = relevant_data.sort_values(by='num_sources', ascending=False)
-print(sorted_data.head(3))
-# Get top 3 source URLs
-urls = sorted_data.head(3).source_url.values.tolist()
-# Generate summaries
-summaries = [summarize_news(url) for url in urls]
+
 
 # Create the Streamlit app
 # Create the Streamlit app
@@ -53,10 +43,45 @@ def date_selector():
 start_date, end_date = date_selector()
 if start_date == None:
     pass
-elif start_date == end_date and start_date != None:
+elif start_date == end_date:
     st.write(f"Fetching news from {start_date}")
 else:
     st.write(f"Fetching news from {start_date} to {end_date}")
+
+
+
+def get_urls(start_date, end_date, num_urls):
+    if start_date == end_date:
+        date = start_date.strftime("%Y%m%d")
+        data = pd.read_csv(f"GDELT Event Files/{date}.export.CSV", sep="\t", header=None)
+        data.columns = column_names
+        clean_data = data.drop_duplicates(subset='source_url')
+        relevant_data = clean_data[['num_sources', 'source_url']]
+        sorted_data = relevant_data.sort_values(by='num_sources', ascending=False).head(num_urls)
+        urls = sorted_data.source_url.values.tolist()
+        return urls
+    else:
+        all_dfs = []
+        days = (end_date - start_date).days
+        for i in range(days):
+            # I want to combine all the csv in the chooosen dates
+            date = start_date.strftime("%Y%m%d")
+            data = pd.read_csv(f"GDELT Event Files/{date}.export.CSV", sep="\t", header=None)
+            data.columns = column_names
+            clean_data = data.drop_duplicates(subset='source_url')
+            relevant_data = clean_data[['num_sources', 'source_url']]
+            all_dfs.append(relevant_data)
+        data = pd.concat(all_dfs)
+        sorted_data = data.sort_values(by='num_sources', ascending=False).head(num_urls)
+        urls = sorted_data.source_url.values.tolist()
+        return urls
+
+
+
+urls = get_urls(start_date, end_date, 5)
+# Generate summaries
+summaries = [summarize_news(url) for url in urls]
+
 
 # Create a container for the scrollable area
 with st.container():
