@@ -10,22 +10,23 @@ from web_app_utils import get_urls
 
 # Create the Streamlit app
 # Create the Streamlit app
-st.title('Top 3 Most Mentioned News Articles')
+st.title('Top News Articles')
 
 # Use streamlit's caching mechanism
-@st.cache_data(ttl=3600)  # Cache for 1 hour
+@st.cache_data(ttl=3600, show_spinner = False)  # Cache for 1 hour
 def get_cached_summary(url):
-    title = extract_article_text(url)
-    summary, category = summarize_news_article(url)
-    if summary == None:
-        return None, None, None
+    with st.spinner('Generating summary'):
+        title = extract_article_text(url)
+        summary, category = summarize_news_article(url)
+        if summary == None or "unavailable" in title or "BizToc" in title:
+            return None, None, None
     return title, summary, category
 
 # Add a sidebar for category selection
 st.sidebar.title("News Categories")
 selected_category = st.sidebar.selectbox(
     "Select categories to display",
-    ["Political", "Economical", "Social"]
+    ["All", "Political", "Economical", "Social"]
     )
 def date_selector():
     # Get today's date
@@ -65,16 +66,20 @@ elif start_date == end_date:
 else:
     st.write(f"Fetching news from {start_date} to {end_date}")
     
-urls = get_urls(start_date, end_date, 10)
+urls = get_urls(start_date, end_date, 100)
 # Generate summaries
 
 # Create a container for the scrollable area
+num_news = 0
 with st.container():
     for url in urls:
+        if num_news >= 10:
+            break
         # Extract title from the URL (you might want to improve this based on your actual data)
         title, summary, category = get_cached_summary(url)
         if title != None and summary != None and category != None:
-            if category in selected_category:
+            num_news += 1
+            if selected_category == "All" or category == selected_category:
                 # Create an expander for each article
                 with st.expander(f"{category}: {title}"):
                     st.write(f'Summary: {summary}')
