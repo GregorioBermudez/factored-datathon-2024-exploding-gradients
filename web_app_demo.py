@@ -1,8 +1,10 @@
 from data_columns import column_names
 import pandas as pd
 import streamlit as st
-from probabilistic_summarizer import summarize_news
+from llm_summary import summarize_news_article
 import datetime
+from title_extractor import extract_article_text
+from url_getter import get_urls
 
 
 
@@ -10,6 +12,21 @@ import datetime
 # Create the Streamlit app
 st.title('Top 3 Most Mentioned News Articles')
 
+# Use streamlit's caching mechanism
+@st.cache_data(ttl=3600)  # Cache for 1 hour
+def get_cached_summary(url):
+    title = extract_article_text(url)
+    summary, category = summarize_news_article(url)
+    if summary == None:
+        return None, None, None
+    return title, summary, category
+
+# Add a sidebar for category selection
+st.sidebar.title("News Categories")
+selected_category = st.sidebar.selectbox(
+    "Select categories to display",
+    ["Political", "Economical", "Social"]
+    )
 def date_selector():
     # Get today's date
     today = datetime.date.today()
@@ -47,51 +64,21 @@ elif start_date == end_date:
     st.write(f"Fetching news from {start_date}")
 else:
     st.write(f"Fetching news from {start_date} to {end_date}")
-
-
-
-def get_urls(start_date, end_date, num_urls):
-    if start_date == end_date:
-        date = start_date.strftime("%Y%m%d")
-        data = pd.read_csv(f"GDELT Event Files/{date}.export.CSV", sep="\t", header=None)
-        data.columns = column_names
-        clean_data = data.drop_duplicates(subset='source_url')
-        relevant_data = clean_data[['num_sources', 'source_url']]
-        sorted_data = relevant_data.sort_values(by='num_sources', ascending=False).head(num_urls)
-        urls = sorted_data.source_url.values.tolist()
-        return urls
-    else:
-        all_dfs = []
-        days = (end_date - start_date).days
-        for i in range(days):
-            # I want to combine all the csv in the chooosen dates
-            date = start_date.strftime("%Y%m%d")
-            data = pd.read_csv(f"GDELT Event Files/{date}.export.CSV", sep="\t", header=None)
-            data.columns = column_names
-            clean_data = data.drop_duplicates(subset='source_url')
-            relevant_data = clean_data[['num_sources', 'source_url']]
-            all_dfs.append(relevant_data)
-        data = pd.concat(all_dfs)
-        sorted_data = data.sort_values(by='num_sources', ascending=False).head(num_urls)
-        urls = sorted_data.source_url.values.tolist()
-        return urls
-
-
-
-urls = get_urls(start_date, end_date, 5)
+    
+urls = get_urls(start_date, end_date, 10)
 # Generate summaries
-summaries = [summarize_news(url) for url in urls]
-
 
 # Create a container for the scrollable area
 with st.container():
-    for i, (url, summary) in enumerate(zip(urls, summaries), 1):
+    for url in urls:
         # Extract title from the URL (you might want to improve this based on your actual data)
-        title = f"Article {i}: {url.split('/')[-1]}"
-        
-        # Create an expander for each article
-        with st.expander(title):
-            st.write(summary)
+        title, summary, category = get_cached_summary(url)
+        if title != None and summary != None and category != None:
+            if category in selected_category:
+                # Create an expander for each article
+                with st.expander(f"{category}: {title}"):
+                    st.write(f'Summary: {summary}')
+                    st.write(f'URL: {url}')
 
 # Add some CSS to make the container scrollable
 st.markdown("""
