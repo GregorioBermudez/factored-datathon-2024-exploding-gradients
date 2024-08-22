@@ -4,7 +4,7 @@ import streamlit as st
 from llm_summary import summarize_news_article
 import datetime
 from title_extractor import extract_article_text
-from url_getter import get_urls
+from web_app_utils import get_urls
 
 
 
