@@ -4,7 +4,7 @@ import streamlit as st
 from llm_summary import summarize_news_article
 import datetime
 from title_extractor import extract_article_text
-from web_app_utils import get_urls
+from url_getter import get_urls
 
 
 
@@ -84,13 +84,3 @@ with st.container():
                 with st.expander(f"{category}: {title}"):
                     st.write(f'Summary: {summary}')
                     st.write(f'URL: {url}')
-
-# Add some CSS to make the container scrollable
-st.markdown("""
-    <style>
-        .stContainer {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-    </style>
-    """, unsafe_allow_html=True)

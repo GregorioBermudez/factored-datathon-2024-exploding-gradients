@@ -58,7 +58,7 @@ def get_sorted_data(data, num_urls):
         The sorted data with the top 'num_urls' rows based on the importance score.
     """
     relevant_data = data.copy()
-    relevant_data['importance'] = relevant_data['num_sources']/max(relevant_data['num_sources']) + abs(relevant_data['avg_tone']/max(abs(relevant_data['avg_tone']))) 
+    relevant_data['importance'] = 2*relevant_data['num_sources']/max(relevant_data['num_sources']) + abs(relevant_data['avg_tone']/max(abs(relevant_data['avg_tone']))) 
     return relevant_data.sort_values(by='importance', ascending=False).head(num_urls)
 
 def get_urls(start_date, end_date, num_urls):
