@@ -3,5 +3,6 @@ GDELT Event Files
 GDELT GKG Files
 
 .DS_Store
-*.csv
+\GDELT Event Files
+\GDELT GKG Files
 isabelmorar_accessKeys.csv
