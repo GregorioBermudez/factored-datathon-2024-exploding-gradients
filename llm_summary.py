@@ -31,12 +31,12 @@ def summarize_text_with_gpt4(text):
             "role": "user",
             "content": f'''"Please summarize the following news article in a 
             concise paragraph. After summarizing, classify the article into one of the following 3
-            categories: Economic, Social or Political
+            categories: Economical, Social or Political. Note: Don't put '**' in the text or the categories
              Input:
              "[{text}]"
              Output:
-             Summary: [Generated summary of the article]
-             Category: [Economic, Social or Political]",
+             Summary: [Generated summary of the article in plain text]
+             Category: [Economical, Social or Political]",
             '''
         }
     ],
