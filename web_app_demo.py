@@ -1,9 +1,9 @@
 from Data_Cleaning.data_columns import column_names
 import pandas as pd
 import streamlit as st
-from llm_summary import summarize_news_article
+from Data_Analysis.llm_summary import summarize_news_article
 import datetime
-from title_extractor import extract_article_text
+from Data_Analysis.title_extractor import extract_article_text
 from url_getter import get_urls
 
 

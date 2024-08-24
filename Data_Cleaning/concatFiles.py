@@ -2,7 +2,7 @@ import pandas as pd
 import glob
 
 # Path to the folder containing the CSV files
-csv_folder_path = r'GDELT Event Files'
+csv_folder_path = r'../Data_Storage/Local/GDELT Event Files'
 
 # List of column names (replace with your actual column names)
 csv_columns = ['global_id',
@@ -72,7 +72,7 @@ csv_columns = ['global_id',
  'source_url'] # URL
 
 # Use glob to get all CSV files in the folder
-all_files = glob.glob(csv_folder_path + "/*.csv")[200:]
+all_files = glob.glob(csv_folder_path + "/*.CSV")[200:]
 
 # Initialize an empty list to store DataFrames
 df_list = []
