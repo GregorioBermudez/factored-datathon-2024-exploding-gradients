@@ -1,5 +1,7 @@
 # Factored Datathon 2024 - Exploding Gradients
 
+Check out our final deployed tool: 
+
 ## The Challege - News Analysis
 
 Synthesize vast amounts of news data into insightful summaries that capture the essence of current events, helping stakeholders make informed decisions based on reliable and unbiased information Especifically, use Natural Language Processing (NLP) to create a summary of news for a specific period picking topics such as Social, Political, and Economical. General guidelines to guide the analysis: 
@@ -12,7 +14,7 @@ Synthesize vast amounts of news data into insightful summaries that capture the 
 
 ## The Data
 
-This challege is address using the [GDELT][https://www.gdeltproject.org] - Global Database of Events, Language,and Tone. Specifically, we used the GDELT 1.0 Global Knowledge Graph (GKG) and Events data.This
+This challege is address using the [GDELT](https://www.gdeltproject.org) - Global Database of Events, Language,and Tone. Specifically, we used the GDELT 1.0 Global Knowledge Graph (GKG) and Events data. This
 dataset provides a rich source of information on global events, news articles, and their
 associated metadata, allowing us to analyze and derive insights from a wide range of
 topics across various domains.
@@ -26,9 +28,18 @@ topics across various domains.
 
 ## The Solution 
 
-# 
+### Data Storage 
 
-#
+### Data Cleaning
+
+### Data Analysis and Machine Learning 
+
+### Project Deployment
+
+
+## Impact and Importance
+
+
 
 
 
