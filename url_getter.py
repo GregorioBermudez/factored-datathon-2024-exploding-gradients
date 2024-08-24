@@ -1,4 +1,4 @@
-from data_columns import column_names
+from Data_Cleaning.data_columns import column_names
 import pandas as pd
 import datetime
 

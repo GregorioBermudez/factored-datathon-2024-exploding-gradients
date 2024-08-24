@@ -7,7 +7,7 @@ import pandas as pd
 from parsel import Selector
 from datetime import datetime
 
-credentials = pd.read_csv('Data_Storage/isabelmorar_accessKeys.csv')
+credentials = pd.read_csv('./isabelmorar_accessKeys.csv')
 access_key_id = credentials['Access key ID'][0]
 secret_access_key = credentials['Secret access key'][0]
 
