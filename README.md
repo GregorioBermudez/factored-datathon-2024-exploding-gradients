@@ -40,8 +40,13 @@ In Databricks, the raw data from S3 was ingested into the Bronze table. This tab
 
 2. Data Cleaning and Transformation (Silver Layer)
 
-The Silver table focuses on data cleaning and refinement. At this stage, the data from the Bronze table was aggregated by URL and by day, ultimately removing duplicate entries to ensure that each news is uniquely represented. In the process of removing duplicates aggregate measures were also computed for each entry. Specifically, the Silver table 
+The Silver table focuses on data cleaning and refinement. At this stage, the data from the Bronze table was aggregated by URL and by day, ultimately removing duplicate entries to ensure that each news is uniquely represented. In the process of removing duplicates aggregate measures were also computed for each entry, as duplicate URLs did not always have the same values for all columns. Specifically, the Silver table contains the following columns: Average NumSources, Average Tone, Average Goldstein Scale and Average Num Articles. These aggregated metrics provide a more concise and consistent dataset, facilitating more accurate analysis and interpretation in the subsequent stages of the data pipeline
 
+3. Data Enrichment and Analysis (Gold Layer)
+
+In the Gold layer the focus is on deriving actionable insights. An importance metric was computed for each news event, weighing each of the factors defined by the columns in the Silver table. This metric helps rank or prioritize events based on their perceived significance.
+
+The Gold table contains the most refined and valuable data, enriched with calculated metrics, and is ready for direct consumption in analytics, reporting, or machine learning models. 
 
 ### Data Analysis and Machine Learning 
 
