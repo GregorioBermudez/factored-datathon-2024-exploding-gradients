@@ -7,7 +7,7 @@ from llm_summary import summarize_news_article
 from title_extractor import extract_article_text
 
 # Databricks connection parameters
-SERVER_HOSTNAME = os.getenv("DATABRICKS_SERVER_HOSTNAME")
+SERVER_HOSTNAME = os.getenv("SERVER_HOSTNAME")
 HTTP_PATH = os.getenv("DATABRICKS_HTTP_PATH")
 ACCESS_TOKEN = os.getenv("DATABRICKS_TOKEN")
 
