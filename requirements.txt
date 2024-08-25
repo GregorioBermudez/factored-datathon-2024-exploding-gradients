@@ -6,3 +6,5 @@ lxml
 lxml_html_clean
 pyspark
 databricks-sql-connector
+numpy==1.26.4
+pyarrow
