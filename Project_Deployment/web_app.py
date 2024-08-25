@@ -12,7 +12,7 @@ HTTP_PATH = os.getenv("DATABRICKS_HTTP_PATH")
 ACCESS_TOKEN = os.getenv("DATABRICKS_TOKEN")
 
 # Create the Streamlit app
-st.title('Top News Articles')
+st.title('Top News Articles Around the World :earth_americas:')
 
 # Use streamlit's caching mechanism
 @st.cache_data(ttl=3600, show_spinner=False)  # Cache for 1 hour
@@ -32,17 +32,17 @@ selected_category = st.sidebar.selectbox(
 )
 
 def date_selector():
-    today = datetime.now().date()
-    date_option = st.radio("Get news from:", ["Today", "Choose dates"])
-    if date_option == "Today":
-        return today, today
+    yesterday = datetime.now().date() - timedelta(days=1)
+    date_option = st.radio("Get news from:", ["Yesterday", "Choose dates"])
+    if date_option == "Yesterday":
+        return yesterday, yesterday
     else:
         col1, col2 = st.columns(2)
         with col1:
-            start_date = st.date_input("Start date", today, max_value=today)
+            start_date = st.date_input("Start date", yesterday, max_value=yesterday)
         with col2:
-            initial_end_date = min(today, start_date)
-            end_date = st.date_input("End date", initial_end_date, min_value=start_date, max_value=today)
+            initial_end_date = min(yesterday, start_date)
+            end_date = st.date_input("End date", initial_end_date, min_value=start_date, max_value=yesterday)
         date_difference = (end_date - start_date).days
         if date_difference > 31:
             st.error("Please select a date range of 31 days or fewer.")
