@@ -21,7 +21,7 @@ topics across various domains.
 
 ## The Team 
 
-- Gregorio Bermúdez - Mathematical Engineering Student | [**Linkedin**](https://www.linkedin.com/in/gregorio-bermúdez-5a7b3a218/) | |[**Github**](https://github.com/GregorioBermudez) |
+- Gregorio Bermúdez - Mathematical Engineering Student | [**Linkedin**](https://www.linkedin.com/in/gregorio-bermúdez-5a7b3a218/) | | [**Github**](https://github.com/GregorioBermudez) |
 - Samuel Rico - Mathematical Engineering Student | [**Linkedin**](https://www.linkedin.com/in/samuel-rico/) | | [**Github**](https://github.com/sricog) |
 - Santiago López - Mathematical Engineering Student | [**Linkedin**](https://www.linkedin.com/in/santiagolopezc/) | | [**Github**](https://github.com/Santilopezc) |
 - Isabel Mora - Mathematical Engineering Student | [**Linkedin**](https://www.linkedin.com/in/isabel-mora-restrepo-a86031227/) | | [**Github**](https://github.com/isabelmorar) |
