@@ -51,7 +51,7 @@ def date_selector():
 
 # Calculate the date range
 start_date, end_date = date_selector()
-
+min_news = st.selectbox("Number of news articles to display", [5, 10, 15, 20, 25, 30, 35, 40, 45, 50])
 def get_urls_from_databricks(start_date, end_date, num_urls):
     with sql.connect(
         server_hostname=SERVER_HOSTNAME,
@@ -75,22 +75,18 @@ if start_date and end_date:
         st.write(f"Fetching news from {start_date}")
     else:
         st.write(f"Fetching news from {start_date} to {end_date}")
+    urls = get_urls_from_databricks(start_date, end_date, 100)
 
-    try:
-        urls = get_urls_from_databricks(start_date, end_date, 100)
-
-        # Generate summaries
-        num_news = 0
-        with st.container():
-            for url in urls:
-                if num_news >= 10:
-                    break
-                title, summary, category = get_cached_summary(url)
-                if title and summary and category:
-                    num_news += 1
-                    if selected_category == "All" or category == selected_category:
-                        with st.expander(f"{category}: {title}"):
-                            st.write(f'Summary: {summary}')
-                            st.write(f'URL: {url}')
-    except Exception as e:
-        st.error(f"An error occurred while fetching data: {str(e)}")
+    # Generate summaries
+    num_news = 0
+    with st.container():
+        for url in urls:
+            if num_news >= min_news:
+                break
+            title, summary, category = get_cached_summary(url)
+            if title and summary and category:
+                num_news += 1
+                if selected_category == "All" or category == selected_category:
+                    with st.expander(f"{category}: {title}"):
+                        st.write(f'Summary: {summary}')
+                        st.write(f'URL: {url}')
