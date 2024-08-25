@@ -1,4 +1,4 @@
-from Data_Cleaning.data_columns import column_names
+from data_columns import column_names
 import pandas as pd
 import datetime
 
@@ -38,7 +38,7 @@ def get_relevant_data(date):
     Returns:
     pandas.DataFrame: The cleaned and relevant data for the given date.
     """
-    data = pd.read_csv(f"Data_Storage/GDELT Event Files/{date}.export.CSV", sep="\t", header=None)
+    data = pd.read_csv(f"GDELT Event Files/{date}.export.CSV", sep="\t", header=None)
     data.columns = column_names
     relevant_data = clean_dataframe(data)
     return relevant_data
