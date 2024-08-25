@@ -1,0 +1,4 @@
+openai
+streamlit
+newspaper3k
+pandas
