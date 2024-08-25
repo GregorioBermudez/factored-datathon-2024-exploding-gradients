@@ -1,6 +1,6 @@
 # Factored Datathon 2024 - Exploding Gradients
 
-Check out our final deployed tool: (https://factored-datathon-2024-exploding-gradients-5u2jq5jhjcbpmcnkkec.streamlit.app)
+Check out our final deployed tool: https://factored-datathon-2024-exploding-gradients-5u2jq5jhjcbpmcnkkec.streamlit.app
 
 ## The Challege - News Analysis
 
