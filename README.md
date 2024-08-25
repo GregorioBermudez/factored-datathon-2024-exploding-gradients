@@ -48,7 +48,7 @@ In the Gold layer the focus is on deriving actionable insights. An importance me
 
 The Gold table contains the most refined and valuable data, enriched with calculated metrics, and is ready for direct consumption in analytics, reporting, or machine learning models. 
 
-**Automated Data Ingestion and Processing**
+**4. Automated Data Ingestion and Processing**
 
 To ensure the dataset remains current, an automated job was implemented on Databricks to scrape the GDELT Events webpage daily. This job retrieves the latest raw events file, uploads it into the AWS S3 Bucket and passes the new data through the entire data pipeline. In the Bronze layer, the raw daily events are stored in their unprocessed form, maintaining the integrity of the data. These raw events are then cleaned and aggregated in the Silver layer, where duplicate entries are removed and aggregate metrics are computed. Finally, in the Gold layer, the importance metric is recalculated for the new events, ensuring that the most significant news is ready for immediate analysis.
 
@@ -65,9 +65,7 @@ For the project deployment, a Streamlit web application was developed and hosted
 
 ### Future Work 
 
-
-
-## Impact and Importance
+Future work on the tool could focus on enhancing user experience and expanding its analytical capabilities. One improvement would be the integration of interactive graphics to visually represent data trends, making the analysis more intuitive. Adding a geographical filter would allow users to narrow down news events by region, providing a more tailored experience. Additionally, implementing sentiment analysis and keyword filtering could offer deeper insights into the nature of the news, helping users identify relevant topics quickly. Another crucial enhancement would be the development of a fake news detection feature, which could assess the credibility of news sources and flag potentially misleading information. 
 
 
 ## Impact and Importance
