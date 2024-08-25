@@ -5,3 +5,4 @@ pandas
 lxml
 lxml_html_clean
 pyspark
+databricks-sql-connector
