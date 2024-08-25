@@ -21,10 +21,10 @@ topics across various domains.
 
 ## The Team 
 
-- [Gregorio Bermúdez](https://www.linkedin.com/in/gregorio-bermúdez-5a7b3a218/)
-- [Samuel Rico](https://www.linkedin.com/in/samuel-rico/)
-- [Santiago López](https://www.linkedin.com/in/santiagolopezc/)
-- [Isabel Mora](https://www.linkedin.com/in/isabel-mora-restrepo-a86031227/)
+- Gregorio Bermúdez - Mathematical Engineering Student |[Linkedin](https://www.linkedin.com/in/gregorio-bermúdez-5a7b3a218/)| |[Github](https://github.com/GregorioBermudez)|
+- Samuel Rico - Mathematical Engineering Student |[Linkedin](https://www.linkedin.com/in/samuel-rico/)| |[Github](https://github.com/sricog)|
+- Santiago López - Mathematical Engineering Student |[Linkedin](https://www.linkedin.com/in/santiagolopezc/)| |[Github](https://github.com/Santilopezc)|
+- Isabel Mora - Mathematical Engineering Student |[Linkedin](https://www.linkedin.com/in/isabel-mora-restrepo-a86031227/)| |[Github](https://github.com/isabelmorar)|
 
 ## The Solution 
 
@@ -66,11 +66,4 @@ For the project deployment, a Streamlit web application was developed and hosted
 ### Future Work 
 
 Future work on the tool could focus on enhancing user experience and expanding its analytical capabilities. One improvement would be the integration of interactive graphics to visually represent data trends, making the analysis more intuitive. Adding a geographical filter would allow users to narrow down news events by region, providing a more tailored experience. Additionally, implementing sentiment analysis and keyword filtering could offer deeper insights into the nature of the news, helping users identify relevant topics quickly. Another crucial enhancement would be the development of a fake news detection feature, which could assess the credibility of news sources and flag potentially misleading information. 
-
-
-## Impact and Importance
-
-
-
-
 
