@@ -4,7 +4,7 @@ import os
 from newspaper import Article
 
 # Set up your OpenAI API key
-openai.api_key = 'sk-j_eK-pwlGxm1oyhPmahFCvdxdNeAfOPaKAiOqu1MhJT3BlbkFJsyfcey3XM89ptnxwyuSXtbszrA7r4SinH54dNXjBYA'
+openai.api_key = os.getenv("OPEN_AI_KEY")
 
 client = OpenAI(
     # This is the default and can be omitted

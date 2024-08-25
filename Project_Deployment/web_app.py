@@ -1,12 +1,15 @@
 import streamlit as st
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import col
-import datetime
+import pandas as pd
+from databricks import sql
+import os
+from datetime import datetime, timedelta
 from llm_summary import summarize_news_article
 from title_extractor import extract_article_text
 
-# Initialize Spark Session
-spark = SparkSession.builder.appName("WebApp").getOrCreate()
+# Databricks connection parameters
+SERVER_HOSTNAME = os.getenv("DATABRICKS_SERVER_HOSTNAME")
+HTTP_PATH = os.getenv("DATABRICKS_HTTP_PATH")
+ACCESS_TOKEN = os.getenv("DATABRICKS_TOKEN")
 
 # Create the Streamlit app
 st.title('Top News Articles')
@@ -29,17 +32,17 @@ selected_category = st.sidebar.selectbox(
 )
 
 def date_selector():
-    yesterday = datetime.date.today() - datetime.timedelta(days=1)
-    date_option = st.radio("Get news from:", ["Yesterday", "Choose dates"])
-    if date_option == "Yersterday":
-        return yesterday, yesterday
+    today = datetime.now().date()
+    date_option = st.radio("Get news from:", ["Today", "Choose dates"])
+    if date_option == "Today":
+        return today, today
     else:
         col1, col2 = st.columns(2)
         with col1:
-            start_date = st.date_input("Start date", yesterday, max_value=yesterday)
+            start_date = st.date_input("Start date", today, max_value=today)
         with col2:
-            initial_end_date = min(yesterday, start_date)
-            end_date = st.date_input("End date", initial_end_date, min_value=start_date, max_value=yesterday)
+            initial_end_date = min(today, start_date)
+            end_date = st.date_input("End date", initial_end_date, min_value=start_date, max_value=today)
         date_difference = (end_date - start_date).days
         if date_difference > 31:
             st.error("Please select a date range of 31 days or fewer.")
@@ -49,40 +52,45 @@ def date_selector():
 # Calculate the date range
 start_date, end_date = date_selector()
 
-if start_date is None:
-    pass
-elif start_date == end_date:
-    st.write(f"Fetching news from {start_date}")
-else:
-    st.write(f"Fetching news from {start_date} to {end_date}")
-
 def get_urls_from_databricks(start_date, end_date, num_urls):
-    gold_table_name = "gold_layer"
-    df = spark.table(gold_table_name)
-    
-    df_filtered = df.filter(
-        (col("Day") >= start_date) & 
-        (col("Day") <= end_date)
-    )
-    
-    top_urls = df_filtered.orderBy(col("Importance").desc()).limit(num_urls)
-    return top_urls.select("SOURCEURL").rdd.flatMap(lambda x: x).collect()
+    with sql.connect(
+        server_hostname=SERVER_HOSTNAME,
+        http_path=HTTP_PATH,
+        access_token=ACCESS_TOKEN
+    ) as connection:
+        with connection.cursor() as cursor:
+            query = f"""
+            SELECT SOURCEURL
+            FROM gold_layer
+            WHERE Day >= '{start_date.strftime("%Y%m%d")}' AND Day <= '{end_date.strftime("%Y%m%d")}'
+            ORDER BY Importance DESC
+            LIMIT {num_urls}
+            """
+            cursor.execute(query)
+            result = cursor.fetchall()
+    return [row[0] for row in result]
 
 if start_date and end_date:
-    start_date = start_date.strftime("%Y%m%d")
-    end_date = end_date.strftime("%Y%m%d")
-    urls = get_urls_from_databricks(start_date, end_date, 100)
+    if start_date == end_date:
+        st.write(f"Fetching news from {start_date}")
+    else:
+        st.write(f"Fetching news from {start_date} to {end_date}")
 
-    # Generate summaries
-    num_news = 0
-    with st.container():
-        for url in urls:
-            if num_news >= 10:
-                break
-            title, summary, category = get_cached_summary(url)
-            if title and summary and category:
-                num_news += 1
-                if selected_category == "All" or category == selected_category:
-                    with st.expander(f"{category}: {title}"):
-                        st.write(f'Summary: {summary}')
-                        st.write(f'URL: {url}')
+    try:
+        urls = get_urls_from_databricks(start_date, end_date, 100)
+
+        # Generate summaries
+        num_news = 0
+        with st.container():
+            for url in urls:
+                if num_news >= 10:
+                    break
+                title, summary, category = get_cached_summary(url)
+                if title and summary and category:
+                    num_news += 1
+                    if selected_category == "All" or category == selected_category:
+                        with st.expander(f"{category}: {title}"):
+                            st.write(f'Summary: {summary}')
+                            st.write(f'URL: {url}')
+    except Exception as e:
+        st.error(f"An error occurred while fetching data: {str(e)}")
