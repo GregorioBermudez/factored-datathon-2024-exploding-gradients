@@ -85,5 +85,6 @@ For the project deployment, a Streamlit web application was developed and hosted
 ### Future Work 
 
 (Hopefully in Factored AI)
+
 Future work on the tool could focus on enhancing user experience and expanding its analytical capabilities. One improvement would be the integration of interactive graphics to visually represent data trends, making the analysis more intuitive. Adding a geographical filter would allow users to narrow down news events by region, providing a more tailored experience. Additionally, implementing sentiment analysis and keyword filtering could offer deeper insights into the nature of the news, helping users identify relevant topics quickly. Another crucial enhancement would be the development of a fake news detection feature, which could assess the credibility of news sources and flag potentially misleading information. 
 
