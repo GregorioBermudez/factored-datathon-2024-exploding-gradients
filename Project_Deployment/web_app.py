@@ -51,6 +51,7 @@ def date_selector():
 
 # Calculate the date range
 start_date, end_date = date_selector()
+st.write(f"Current date and hour: {datetime.now()}")
 min_news = st.selectbox("Number of news articles to display", [5, 10, 15, 20, 25, 30, 35, 40, 45, 50])
 def get_urls_from_databricks(start_date, end_date, num_urls):
     with sql.connect(
