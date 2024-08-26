@@ -34,16 +34,12 @@ selected_category = st.sidebar.selectbox(
 
 def date_selector():
     utc_now = datetime.now(pytz.utc)
-    est_tz = pytz.timezone('US/Eastern')
-    est_now = utc_now.astimezone(est_tz)
-    news_release_time = utc_now.replace(hour=6, minute=0, second=0, microsecond=0)
-    st.write(f'Current time in EST: {est_now.strftime("%Y-%m-%d %H:%M:%S")}')
-    st.write(f'News release time: {news_release_time.strftime("%Y-%m-%d %H:%M:%S")}')
+    news_release_time = utc_now.replace(hour=10, minute=0, second=0, microsecond=0)
     yesterday = datetime.now().date() - timedelta(days=1)
     date_option = st.radio("Get news from:", ["Yesterday", "Choose dates"])
     
     if date_option == "Yesterday":
-        if est_now < news_release_time:
+        if utc_now < news_release_time:
             st.warning("Yesterday's news will be released at 6:00 AM EST.")
             return None, None
         return yesterday, yesterday
