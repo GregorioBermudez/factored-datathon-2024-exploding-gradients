@@ -5,6 +5,7 @@ import os
 from datetime import datetime, timedelta
 from llm_summary import summarize_news_article
 from title_extractor import extract_article_text
+import pytz
 
 # Databricks connection parameters
 SERVER_HOSTNAME = os.getenv("SERVER_HOSTNAME")
