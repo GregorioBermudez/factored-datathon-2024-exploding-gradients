@@ -60,6 +60,7 @@ According to the challenge requests, it was crucial to refine the data in a cert
   - Retrieve enough information to rank news according to relevancy and construct an importance indicator.
   - Classify the news articles based on the topics mentioned in the text.
   - Synthesize the information referred to in the important articles.
+
 After the data cleaning process, the resulting data frame could be divided into two main categories of features: those that describe the impact of the article (Goldstein scale, sources, citations, etc.) and those that describe the topic of the article (actors, events, countries, etc.). At this point, the data was ready for processing and manipulation.
 
 #### News Ranking (Gold layer)
