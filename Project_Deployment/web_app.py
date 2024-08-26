@@ -103,7 +103,7 @@ if start_date and end_date:
             if title and summary and category:
                 num_news += 1
                 if selected_category == "All" or category == selected_category:
-                    category_found[selected_category] = True
+                    category_found[category] = True
                     with st.expander(title):
                         st.write(f'Summary: {summary}')
                         st.write(f'URL: {url}')
