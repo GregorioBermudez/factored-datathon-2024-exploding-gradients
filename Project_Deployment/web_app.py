@@ -92,7 +92,7 @@ if start_date and end_date:
     # Generate summaries
     num_news = 0
     # Initialize counters and flags for each category
-    categories = ["All", "Political", "Economical", "Social"]
+    categories = ["Political", "Economical", "Social"]
     category_found = {cat: False for cat in categories}
     category_count = {cat: 0 for cat in categories}
     category_found["All"] = True
