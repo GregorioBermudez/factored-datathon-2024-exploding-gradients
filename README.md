@@ -68,6 +68,7 @@ For ranking the news based on the importance of the article, it was necessary to
 
 #### Topic classification approach
 Initially, we aimed to classify the articles based on the named actors and events mentioned within them. To achieve this, we ran an LDA model on the entities identified in each article, clustering them into k distinct topics. This method was chosen due to the unsupervised nature of the problem, this approach offered an individual article classification and an insight (most important words) of what topic each cluster referred to.
+
 However, after evaluating the results, we decided to use the classification provided by the GPT API, which was originally integrated to summarize our articles. This approach offered more accurate and coherent classifications, aligning better with our project's goals. Nevertheless, the Bayesian model that was try 
 
 #### Article summarization
