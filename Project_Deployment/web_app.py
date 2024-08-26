@@ -32,7 +32,7 @@ selected_category = st.sidebar.selectbox(
 )
 
 def date_selector():
-    yesterday = datetime.now().date() - timedelta(days=1)
+    yesterday = datetime.now().date()
     date_option = st.radio("Get news from:", ["Yesterday", "Choose dates"])
     if date_option == "Yesterday":
         return yesterday, yesterday
