@@ -37,6 +37,8 @@ def date_selector():
     est_tz = pytz.timezone('US/Eastern')
     est_now = utc_now.astimezone(est_tz)
     news_release_time = est_now.replace(hour=6, minute=0, second=0, microsecond=0)
+    st.write(f'Current time in EST: {est_now.strftime("%Y-%m-%d %H:%M:%S")}')
+    st.write(f'News release time: {news_release_time.strftime("%Y-%m-%d %H:%M:%S")}')
     yesterday = datetime.now().date() - timedelta(days=1)
     date_option = st.radio("Get news from:", ["Yesterday", "Choose dates"])
     
@@ -60,7 +62,6 @@ def date_selector():
         
 # Calculate the date range
 start_date, end_date = date_selector()
-st.write(f"Current date and hour: {datetime.now()}")
 min_news = st.selectbox("Number of news articles to display", [5, 10, 15, 20, 25, 30, 35, 40, 45, 50])
 def get_urls_from_databricks(start_date, end_date, num_urls):
     with sql.connect(
