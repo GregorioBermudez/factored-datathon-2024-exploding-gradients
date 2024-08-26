@@ -32,7 +32,7 @@ selected_category = st.sidebar.selectbox(
     ["All", "Political", "Economical", "Social"]
 )
 
-date_now = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+date_now = datetime.now().strftime("%d/%m/%Y %H:%M")
 st.write(f"Current date: {date_now}")
 def date_selector():
     utc_now = datetime.now(pytz.utc)
