@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from llm_summary import summarize_news_article
 from title_extractor import extract_article_text
 import pytz
+import plotly.express as px
 
 # Databricks connection parameters
 SERVER_HOSTNAME = os.getenv("SERVER_HOSTNAME")
@@ -93,6 +94,7 @@ if start_date and end_date:
     # Initialize counters and flags for each category
     categories = ["All", "Political", "Economical", "Social"]
     category_found = {cat: False for cat in categories}
+    category_count = {cat: 0 for cat in categories}
     category_found["All"] = True
 
     with st.container():
@@ -104,8 +106,34 @@ if start_date and end_date:
                 num_news += 1
                 if selected_category == "All" or category == selected_category:
                     category_found[category] = True
+                    category_count[category] += 1
                     with st.expander(title):
                         st.write(f'Summary: {summary}')
                         st.write(f'URL: {url}')
     if not category_found[selected_category]:
         st.warning(f"No relevant {selected_category} news in the top {min_news} articles for the selected dates.")
+
+        # Create and display the plot
+    st.subheader("News Category Distribution")
+    
+    # Prepare data for the plot
+    plot_data = pd.DataFrame({
+        'Category': categories,
+        'Count': [category_count[cat] for cat in categories]
+    })
+
+    # Create the bar plot
+    fig = px.bar(plot_data, x='Category', y='Count', 
+                 title='Distribution of News Articles by Category',
+                 labels={'Count': 'Number of Articles'},
+                 color='Category')
+
+    # Customize the layout
+    fig.update_layout(
+        xaxis_title="Category",
+        yaxis_title="Number of Articles",
+        showlegend=False
+    )
+
+    # Display the plot
+    st.plotly_chart(fig)
