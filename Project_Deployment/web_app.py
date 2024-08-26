@@ -112,28 +112,28 @@ if start_date and end_date:
                         st.write(f'URL: {url}')
     if not category_found[selected_category]:
         st.warning(f"No relevant {selected_category} news in the top {min_news} articles for the selected dates.")
-
+    else:
         # Create and display the plot
-    st.subheader("News Category Distribution")
-    
-    # Prepare data for the plot
-    plot_data = pd.DataFrame({
-        'Category': categories,
-        'Count': [category_count[cat] for cat in categories]
-    })
+        st.subheader("News Category Distribution")
+        
+        # Prepare data for the plot
+        plot_data = pd.DataFrame({
+            'Category': categories,
+            'Count': [category_count[cat] for cat in categories]
+        })
 
-    # Create the bar plot
-    fig = px.bar(plot_data, x='Category', y='Count', 
-                 title='Distribution of News Articles by Category',
-                 labels={'Count': 'Number of Articles'},
-                 color='Category')
+        # Create the bar plot
+        fig = px.bar(plot_data, x='Category', y='Count', 
+                    title='Distribution of News Articles by Category',
+                    labels={'Count': 'Number of Articles'},
+                    color='Category')
 
-    # Customize the layout
-    fig.update_layout(
-        xaxis_title="Category",
-        yaxis_title="Number of Articles",
-        showlegend=False
-    )
+        # Customize the layout
+        fig.update_layout(
+            xaxis_title="Category",
+            yaxis_title="Number of Articles",
+            showlegend=False
+        )
 
-    # Display the plot
-    st.plotly_chart(fig)
+        # Display the plot
+        st.plotly_chart(fig)
