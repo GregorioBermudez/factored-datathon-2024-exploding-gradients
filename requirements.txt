@@ -8,3 +8,4 @@ pyspark
 databricks-sql-connector
 numpy==1.26.4
 pyarrow
+pytz
