@@ -32,9 +32,9 @@ selected_category = st.sidebar.selectbox(
     ["All", "Political", "Economical", "Social"]
 )
 
+date_now = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+st.write(f"Current date: {date_now}")
 def date_selector():
-    date_now = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-    st.write(f"Current date: {date_now}")
     utc_now = datetime.now(pytz.utc)
     news_release_time = utc_now.replace(hour=10, minute=0, second=0, microsecond=0)
     yesterday = datetime.now().date() - timedelta(days=1)
