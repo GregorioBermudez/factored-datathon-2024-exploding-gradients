@@ -33,6 +33,7 @@ selected_category = st.sidebar.selectbox(
 )
 
 def date_selector():
+    st.write(f"Current date: {datetime.now()}")
     utc_now = datetime.now(pytz.utc)
     news_release_time = utc_now.replace(hour=10, minute=0, second=0, microsecond=0)
     yesterday = datetime.now().date() - timedelta(days=1)
