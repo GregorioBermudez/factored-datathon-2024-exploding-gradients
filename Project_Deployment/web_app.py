@@ -112,7 +112,7 @@ if start_date and end_date:
                         st.write(f'URL: {url}')
     if not category_found[selected_category]:
         st.warning(f"No relevant {selected_category} news in the top {min_news} articles for the selected dates.")
-    else:
+    if selected_category == "All":
         # Create and display the plot
         st.subheader("News Category Distribution")
         
