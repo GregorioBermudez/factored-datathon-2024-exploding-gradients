@@ -79,6 +79,11 @@ if start_date and end_date:
 
     # Generate summaries
     num_news = 0
+    # Initialize counters and flags for each category
+    categories = ["All", "Political", "Economical", "Social"]
+    category_found = {cat: False for cat in categories}
+    category_found["All"] = True
+
     with st.container():
         for url in urls:
             if num_news >= min_news:
@@ -87,6 +92,9 @@ if start_date and end_date:
             if title and summary and category:
                 num_news += 1
                 if selected_category == "All" or category == selected_category:
+                    category_found[selected_category] = True
                     with st.expander(f"{category}: {title}"):
                         st.write(f'Summary: {summary}')
                         st.write(f'URL: {url}')
+    if not category_found[selected_category]:
+        st.warning(f"No relevant {selected_category} news in the top {min_news} articles for the selected dates.")
