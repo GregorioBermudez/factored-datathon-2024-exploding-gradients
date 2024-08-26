@@ -32,36 +32,6 @@ def calculate_importance(df):
         (abs(col("AvgAvgTone")) / lit(max_abs_tone))
     )
 
-# COMMAND ----------
-
-# def get_sorted_data(df, num_urls):
-#     """
-#     Sorts the given data based on the importance score and returns the top 'num_urls' rows.
-#     """
-#     return df.orderBy(col("Importance").desc()).limit(num_urls)
-
-# COMMAND ----------
-
-# def get_urls(start_date, end_date, num_urls):
-#     """
-#     Retrieves a list of URLs based on the given start date, end date, and number of URLs.
-#     """
-#     # Read from Silver table
-#     df = spark.table(silver_table_name)
-    
-#     # Filter by date range
-#     df_filtered = df.filter(
-#         (col("Day") >= start_date) & 
-#         (col("Day") <= end_date)
-#     )
-    
-#     # Calculate importance
-#     df_with_importance = calculate_importance(df_filtered)
-    
-#     # Get top URLs
-#     top_urls = get_sorted_data(df_with_importance, num_urls)
-    
-#     return top_urls
 
 # COMMAND ----------
 
@@ -85,11 +55,6 @@ def transform_to_gold():
 # COMMAND ----------
 transform_to_gold()
 
-
-# urls = transform_to_gold(start_date, end_date, num_urls)
-# print(f"Top {num_urls} URLs:")
-# for url in urls:
-#     print(url)
 
 # COMMAND ----------
 
