@@ -28,6 +28,8 @@ topics across various domains.
 
 ## The Solution 
 
+![Project Diagram](Images/data_pipeline.png)
+
 ### Data Storage and Data Cleaning
 
 In this project, raw event data from the [GDELT](http://data.gdeltproject.org/events/index.html) dataset was processed using Databricks and AWS, adhering to the Medallion architecture to structure and refine the data across multiple stages. Specifically, Delta tables were utilized to manage the data within each layer of the architecture, ensuring reliability, consistency, and efficient processing across the Bronze, Silver, and Gold stages.
