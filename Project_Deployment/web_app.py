@@ -46,11 +46,12 @@ def date_selector():
             return None, None
         return yesterday, yesterday
     else:
+        before_yesterday = yesterday - timedelta(days=1)
         col1, col2 = st.columns(2)
         with col1:
-            start_date = st.date_input("Start date", yesterday, max_value=yesterday)
+            start_date = st.date_input("Start date", before_yesterday, max_value=yesterday)
         with col2:
-            initial_end_date = min(yesterday, start_date)
+            initial_end_date = min(before_yesterday, start_date)
             end_date = st.date_input("End date", initial_end_date, min_value=start_date, max_value=yesterday)
         date_difference = (end_date - start_date).days
         if date_difference > 31:
