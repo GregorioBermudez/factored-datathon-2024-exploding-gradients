@@ -54,7 +54,7 @@ def date_selector():
             start_date = st.date_input("Start date", before_yesterday, min_value = min_date, max_value=yesterday)
         with col2:
             initial_end_date = min(before_yesterday, start_date)
-            end_date = st.date_input("End date", initial_end_date, min_value=min_date, max_value=yesterday)
+            end_date = st.date_input("End date", initial_end_date, min_value=start_date, max_value=yesterday)
         date_difference = (end_date - start_date).days
         if date_difference > 31:
             st.error("Please select a date range of 31 days or fewer.")
