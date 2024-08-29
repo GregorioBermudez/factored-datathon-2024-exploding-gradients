@@ -102,7 +102,7 @@ if start_date and end_date:
             if num_news >= min_news:
                 break
             title, summary, category = get_cached_summary(url)
-            if title and summary and category:
+            if title and summary and category and category in categories:
                 num_news += 1
                 if selected_category == "All" or category == selected_category:
                     category_found[category] = True
