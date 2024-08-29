@@ -12,6 +12,8 @@ client = OpenAI(
 )
 def extract_article_content(url):
     """Extracts the main content of the article from the URL using newspaper3k."""
+    if "biztoc" in url:
+        return ''
     article = Article(url)
     article.download()
     try:
@@ -27,18 +29,18 @@ def summarize_text_with_gpt4(text):
     """Summarizes the provided text using GPT-4 Mini."""
     response = client.chat.completions.create(
     messages=[
-        {
-            "role": "user",
-            "content": f'''"Please summarize the following news article in a 
-            concise paragraph. After summarizing, classify the article into one of the following 3
-            categories: Economical, Social or Political. Note: Don't put '**' in the text or the categories
-             Input:
-             "[{text}]"
-             Output:
-             Summary: [Generated summary of the article in plain text]
-             Category: [Economical, Social or Political]",
-            '''
-        }
+            {
+        "role": "user",
+        "content": f'''"Please summarize the following text in a 
+        concise paragraph. If the text is not a valid news article, respond with 'Summary: None' and 'Category: None'. After summarizing, classify the article into one of the following 3
+        categories: Economical, Social, or Political. Don't put '**' in the text or the categories
+            Input:
+            "[{text}]"
+            Output:
+            Summary: [Generated summary of the article or 'None']
+            Category: [Economical, Social, Political, or 'None']",
+        '''
+    }
     ],
     model="gpt-4o-mini",
 )
@@ -47,11 +49,15 @@ def summarize_text_with_gpt4(text):
     summary = None
     if "Summary:" in output_text:
         summary = output_text.split("Summary:")[1].split("Category:")[0].strip()
+        if summary == 'None':
+            summary = None
 
     # Extract the category
     category = None
     if "Category:" in output_text:
         category = output_text.split("Category:")[1].strip().split()[0]
+        if category == 'None':
+            category = None
         return summary, category
 
 def summarize_news_article(url):
