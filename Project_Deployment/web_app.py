@@ -108,6 +108,7 @@ if start_date and end_date:
                     category_found[category] = True
                     category_count[category] += 1
                     with st.expander(title):
+                        st.write(f'Category: {category}')
                         st.write(f'Summary: {summary}')
                         st.write(f'URL: {url}')
     if not category_found[selected_category]:
